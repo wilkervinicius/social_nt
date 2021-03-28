@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+    my invites
+{% endblock title %}
+
+
+{% block content %}
+
+
+{% if is_empty %}
+    <h1>Não há convites pendentes</h1>
+    
+{% endif %}
+    
+
+
+{% for obj in  qs %}
+    <div class="ui segment">
+        <div class="ui grid">
+            <div class="row">
+                <div class=" three wide column">
+                    <img class="ui tiny circular image" src="{{obj.avatar.url}}">
+                </div>
+                <div class="thirteen wide column">
+                    <h3>{{obj.user}}</h3>
+                    <p>{{obj.bio}}</p>
+                    <br>
+                    <a> 
+                        <button class="ui primary basic button w-big mb-5" href="">Ver Perfil </button>
+                    </a>
+                    <form action="{% url 'profiles:accept-invite-view' %}" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="profile_pk" value={{obj.pk}}>
+                        <button type="submit" class="ui positive basic button w-big mb-5" href="">
+                            <i class="check icon"></i>
+                            Aceitar convite
+                        </button>
+                    </form>
+                    <form action="{% url 'profiles:reject-invite-view' %}" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="profile_pk" value={{obj.pk}}>
+                        <button type="submit" class="ui negative basic button w-big mb-5" href="">
+                            <i class="close icon"></i>
+                            Rejeitar convite
+                        </button>
+                    </form>
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+{% endfor %}
+</ul>    
+    
+{% endblock content %}
+    
+    

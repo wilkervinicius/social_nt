@@ -1,0 +1,10 @@
+version: '3.7'
+services:
+	django_social:
+		build: .
+		container_name: django_social
+		networks: 
+			- frontend_network
+networks:
+	frontend_network:
+		driver: bridge	

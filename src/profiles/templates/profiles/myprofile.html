@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+my profile
+{% endblock title %}
+
+
+{% block content %}
+<!--MODAL -->
+<div class="ui modal mymodal">
+    <i class="close icon"></i>
+    <div class="header">
+      Atualiza seu Profile
+    </div>
+    <div class="image content">
+      <div class="ui medium image">
+        <img src="{{profile.avatar.url}}">
+      </div>
+      <div class="description">
+        <div class="ui header">Forneça alguma informação adicional sobre você.</div>
+        <form action="" method="POST" class="ui form" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{form.as_p}}
+            
+        
+      </div>
+    </div>
+    <div class="actions">
+     <!--
+      <div class="ui black deny button">
+        Nope
+      </div>
+      -->
+         <button type="submit" class="ui positive right labeled icon button">
+            Atualizar
+         <i class="checkmark icon"></i>
+         </button>
+        </form>
+    </div>
+  </div>
+
+
+
+<div class="ui segment">
+    {% if confirm %}
+    <div class="ui green message">Profile atualizado com sucesso.</div>
+    {% endif %}
+    <h3>my profile: {{profile}}</h3> 
+    <div class="ui grid">
+        <div class="row">
+            <div class="six wide column">
+                <img class="ui medium rounded image" src="{{profile.avatar.url}}" >
+                <div class="row mt-5s">
+                    <button class=" ui secondary button " id="modal-btn"> Atualize seu Profile </button>
+                </div>
+                
+            </div>
+            <div class=" ten wide column">
+                <table class="ui table">
+                    <tbody>
+                        <tr>
+                            <td>Nome usuário:</td>                           
+                            <td>{{profile.user}}</td>                  
+                        </tr>
+                        <tr>
+                            <td>Primeiro nome:</td>                           
+                            <td>{{profile.first_name}}</td>                  
+                        </tr>
+                        <tr>
+                            <td>Sobrenome:</td>                           
+                            <td>{{profile.last_name}}</td>                  
+                        </tr>
+                        <tr>
+                            <td>Bio:</td>                           
+                            <td>{{profile.bio}}</td>                  
+                        </tr>
+                        <tr>
+                            <td>País:</td>                           
+                            <td>{{profile.country}}</td>                  
+                        </tr>
+                        <tr>
+                            <td>Quantidade de amigos:</td>                           
+                            <td>{{profile.get_friends_count}}</td>                  
+                        </tr>
+                        <tr>
+                            <td>Quantidade de posts:</td>                           
+                            <td>{{profile.get_posts_count}}</td>                  
+                        </tr>
+                        <tr>
+                            <td>Quantidade de likes dados:</td>                           
+                            <td>{{profile.get_likes_given_count}}</td>                  
+                        </tr>
+                        <tr>
+                            <td>Quantidade de likes recebidos:</td>                           
+                            <td>{{profile.get_likes_received}}</td>                  
+                        </tr>
+                        <tr>
+                            <td>Seus amigos:</td>                           
+                            <td>
+                                <ul>
+                                    
+                                    {% for friend in profile.get_friends %}
+                                        <li>{{friend}}</li>
+                                    {%endfor%}
+                                </ul>
+                            </td>                  
+                        </tr>
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div> 
+    </div> 
+</div>
+
+
+
+
+{% endblock content %}
